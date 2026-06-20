@@ -11,7 +11,6 @@ A state-of-the-art, responsive operator console and Next.js frontend integrated 
   <img src="photos/stellar-expert.png" width="49%" alt="Stellar Expert Contract Details" />
 </p>
 
-*Place your manually captured screenshots as `dashboard.png` and `stellar-expert.png` inside the `/photos` folder.*
 
 ---
 
