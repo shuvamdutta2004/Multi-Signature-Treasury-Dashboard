@@ -67,7 +67,7 @@ export default function WalletConnectButton() {
                 Copy Address
               </button>
               <a
-                href={getAccountExplorerUrl(address)}
+                href={`https://stellar.expert/explorer/testnet/contract/${process.env.NEXT_PUBLIC_TREASURY_CONTRACT_ID}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setOpen(false)}

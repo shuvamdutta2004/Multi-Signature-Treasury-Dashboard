@@ -1,160 +1,119 @@
-Multi-Signature Treasury Dashboard
-A polished Next.js frontend for a Soroban smart contract that lets signers collectively manage a shared treasury: propose transfers, vote on proposals, execute approved transfers, and track all activity in real time.
+# 🏦 Multi-Signature Treasury Dashboard
 
-Next.js 15 Tailwind CSS v3 Stellar Soroban Testnet Freighter wallet
+A state-of-the-art, responsive operator console and Next.js frontend integrated with a **Soroban Smart Contract** on the **Stellar Testnet**. This platform enables multi-signature co-signers to collectively control and govern a shared treasury—proposing spend transfers, voting on active proposals, executing approved spends on-chain, and tracking ledger activities in real time.
 
-Contract Explorer
+---
 
-Stellar Expert: https://stellar.expert/explorer/testnet/contract/CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
+## 📸 Screenshots
 
-Contract ID: CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
+<p align="center">
+  <img src="photos/dashboard.png" width="49%" alt="Dashboard View" />
+  <img src="photos/stellar-expert.png" width="49%" alt="Stellar Expert Contract Details" />
+</p>
 
-Freighter wallet Address: GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N
+*Place your manually captured screenshots as `dashboard.png` and `stellar-expert.png` inside the `/photos` folder.*
 
-Overview
-This project combines:
+---
 
-* A Soroban smart contract for multi-signature treasury logic (initialize, deposit, create proposal, vote, execute proposal)
-* A Next.js dashboard for interacting with the contract
-* Freighter wallet integration for authenticated write actions (create proposal, vote, execute proposal, deposit)
-* Read-only contract calls for treasury balance lookup, signer registration checks, proposal listing, threshold checks, and proposal voting counts
+## 🔗 Contract Explorer & Credentials
 
-The current frontend is designed as a clean operator console with live status output, wallet visibility, voting progress indicators, real-time events feed, and responsive layout for desktop and mobile.
+| Resource | Value / Link |
+| :--- | :--- |
+| **Contract ID** | `CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP` |
+| **Stellar Expert Explorer** | [View Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP) |
+| **Freighter Wallet Address** | `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N` |
 
-What You Can Do
-* Initialize a new treasury with custom signers list and approval threshold
-* Deposit XLM into the treasury contract
-* Create a Spend Proposal (specifying recipient, amount, and description)
-* Vote on active proposals (approve / reject)
-* Execute an approved proposal that has met or exceeded the threshold
-* List all treasury proposals
-* Track real-time activity and contract events
-* View local transaction history with execution statuses
+---
 
-Smart Contract Behavior
-The Soroban contract stores treasury state with:
-* signers (Vector of signer Addresses)
-* threshold (approval count needed)
-* proposal registry (Spend Proposals)
-* voter maps (signer votes cast per proposal)
-* balances (treasury XLM balance)
+## ✨ Features
 
-Exposed contract methods:
-* `initialize`
-* `deposit`
-* `create_proposal`
-* `vote`
-* `execute_proposal`
-* `get_proposal`
-* `get_proposals`
-* `get_signers`
-* `get_balance`
-* `get_threshold`
+- **🛡️ Multi-Signature Governance**: Establish joint administrative control with a customizable threshold (e.g. 1-of-N, 2-of-3).
+- **💸 Spend Proposals**: Any registered signer can propose a spend action, identifying the target recipient address, amount in XLM, and description.
+- **🗳️ Signer Voting**: Real-time cast of votes (approve/reject) with interactive progress bars demonstrating threshold compliance.
+- **⚡ On-Chain Execution**: Once a proposal satisfies the approval threshold, a signer can execute the proposal to release the Stellar assets.
+- **🔔 Live Event Polling**: Autonomous 5-second polling of Soroban RPC `getEvents` keeps the activity feed populated with real-time on-chain actions.
+- **💼 Wallet Integration**: Full multi-wallet select modal integration using `StellarWalletsKit` with focus on Freighter wallet.
 
-Frontend Highlights
-* StellarWalletsKit integration with support for Freighter and other wallets
-* Live contract response tracking and toast notifications
-* Voting progress indicator with threshold status badges
-* Auto-polling of contract events feed every 5 seconds using getEvents RPC
-* Responsive dashboard layout with separate treasury stats, active proposals, event feed, and transaction history panels
+---
 
-Tech Stack
-* Next.js 15
-* Tailwind CSS v3
-* @stellar/stellar-sdk
-* @creit.tech/stellar-wallets-kit
-* Soroban smart contract in Rust
+## ⚙️ Tech Stack & Architecture
 
-Project Structure
+- **Frontend Framework**: Next.js 15 (App Router)
+- **Styling & Theme**: Tailwind CSS v3 (custom dark glassmorphism styling)
+- **State Management**: Zustand (stores for wallet, events, and transactions)
+- **Data Fetching**: TanStack Query (React Query v5)
+- **Blockchain Connectivity**: `@stellar/stellar-sdk` & `@creit.tech/stellar-wallets-kit`
+- **Smart Contract Target**: Soroban Rust SDK targeting WebAssembly (`wasm32v1-none`)
+
+---
+
+## 📂 Project Structure
+
+```text
 .
 ├── app/
-│   ├── page.tsx
-│   ├── dashboard/
-│   ├── treasury/
-│   ├── activity/
-│   ├── transactions/
-│   ├── layout.tsx
-│   └── providers.tsx
+│   ├── layout.tsx         # Root Layout, provider config, metadata
+│   ├── page.tsx           # Landing landing page with feature cards
+│   ├── dashboard/         # Wallet details & connection console
+│   ├── treasury/          # Active proposals & spend creation console
+│   ├── activity/          # Event feed panel
+│   └── transactions/      # Transaction history logs
 ├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   └── Sidebar.tsx
-│   ├── wallet/
-│   │   ├── WalletConnectButton.tsx
-│   │   └── AddressDisplay.tsx
-│   ├── treasury/
-│   │   ├── ProposalCard.tsx
-│   │   ├── CreateProposalForm.tsx
-│   │   ├── VotingProgress.tsx
-│   │   └── TreasuryStats.tsx
-│   ├── activity/
-│   │   ├── EventFeed.tsx
-│   │   └── EventItem.tsx
-│   └── transactions/
-│       └── TransactionStatus.tsx
+│   ├── layout/            # Navbar & Sidebar shell UI
+│   ├── wallet/            # Connection state buttons & modal wrappers
+│   ├── treasury/          # Proposal rendering & vote status cards
+│   └── activity/          # Live event feeds
 ├── contracts/
-│   └── treasury/
-│       ├── Cargo.toml
-│       └── src/
-│           ├── lib.rs
-│           └── types.rs
-├── hooks/
-│   ├── useWallet.ts
-│   ├── useTreasury.ts
-│   ├── useProposals.ts
-│   ├── useVote.ts
-│   ├── useCreateProposal.ts
-│   ├── useContractEvents.ts
-│   └── useExecuteProposal.ts
+│   └── treasury/          # Rust Smart Contract containing multi-sig logic
+├── hooks/                 # Custom React queries & mutation logic hooks
 ├── lib/
-│   ├── stellar/
-│   │   ├── client.ts
-│   │   ├── contract.ts
-│   │   ├── wallet.ts
-│   │   └── events.ts
-│   └── utils.ts
-├── store/
-│   ├── walletStore.ts
-│   ├── transactionStore.ts
-│   └── eventStore.ts
-├── types/
-│   ├── contract.ts
-│   ├── wallet.ts
-│   └── events.ts
-└── README.md
+│   ├── stellar/           # Clients, wallet kits, contract connectors
+│   └── utils.ts           # Styling class merge utilities
+└── store/                 # Global Zustand state containers
+```
 
-Local Setup
-Prerequisites
-* Node.js installed
-* npm installed
-* Freighter wallet extension
-* Access to Stellar Soroban testnet
+---
 
-Install
+## 🚀 Setup & Local Execution
+
+### Prerequisites
+- Node.js (v18+)
+- Freighter browser extension configured for Testnet
+
+### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-Run The App
+### 2. Configure Environment Variables
+Verify or create a `.env.local` file at the root containing the active deployment:
+```env
+NEXT_PUBLIC_STELLAR_NETWORK=testnet
+NEXT_PUBLIC_STELLAR_RPC_URL=https://soroban-testnet.stellar.org
+NEXT_PUBLIC_NETWORK_PASSPHRASE="Test SDF Network ; September 2015"
+NEXT_PUBLIC_TREASURY_CONTRACT_ID=CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
+NEXT_PUBLIC_HORIZON_URL=https://horizon-testnet.stellar.org
+NEXT_PUBLIC_NATIVE_TOKEN_ADDRESS=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC
+```
+
+### 3. Run Development Server
 ```bash
 npm run dev
 ```
+Open [http://localhost:3000](http://localhost:3000) to view the application dashboard.
 
-Production Build
+### 4. Build for Production
 ```bash
 npm run build
+npm run start
 ```
 
-Lint
-```bash
-npm run lint
-```
+---
 
-User Flow
-1. Connect Freighter Wallet (address: `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N`).
-2. Select dashboard to check signer status and balance.
-3. Propose a new spend transfer (recipient, amount, description).
-4. Have signers vote on the proposal (approve/reject).
-5. Once the threshold is met, execute the proposal to transfer the funds.
-6. Track events in real-time in the activity feed.
+## 🔄 Core User Flow
 
+1. **Connect Wallet**: Authenticate Freighter wallet (primary owner: `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N`).
+2. **Propose Spend**: Access **Treasury** and fill out the Spend Proposal form.
+3. **Vote**: Registered signers review proposals under **Active Proposals** and click Approve or Reject.
+4. **Execute**: When the proposal meets the approval threshold, click the **Execute** action button to submit the transaction to the Stellar ledger.
+5. **Monitor Events**: View incoming transaction receipts and live signals under the **Activity Feed**.
