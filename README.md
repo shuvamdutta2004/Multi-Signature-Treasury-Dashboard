@@ -4,11 +4,12 @@ A polished Next.js frontend for a Soroban smart contract that lets signers colle
 Next.js 15 Tailwind CSS v3 Stellar Soroban Testnet Freighter wallet
 
 Contract Explorer
+
 Stellar Expert: https://stellar.expert/explorer/testnet/contract/CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
 
 Contract ID: CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP
-Freighter wallet address
-Freighter wallet ID: GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N
+
+Freighter wallet Address: GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N
 
 Overview
 This project combines:
@@ -149,27 +150,6 @@ Lint
 npm run lint
 ```
 
-How The App Talks To Stellar
-Write actions are signed with Freighter:
-* `deposit`
-* `create_proposal`
-* `vote`
-* `execute_proposal`
-
-Read actions are simulated against the configured Soroban RPC endpoint:
-* `get_balance`
-* `get_threshold`
-* `get_signers`
-* `get_proposals`
-* `get_proposal`
-
-Configuration lives in `.env.local`, including:
-* `NEXT_PUBLIC_STELLAR_NETWORK=testnet`
-* `NEXT_PUBLIC_STELLAR_RPC_URL=https://soroban-testnet.stellar.org`
-* `NEXT_PUBLIC_NETWORK_PASSPHRASE="Test SDF Network ; September 2015"`
-* `NEXT_PUBLIC_TREASURY_CONTRACT_ID=CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP`
-* `NEXT_PUBLIC_NATIVE_TOKEN_ADDRESS=CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
-
 User Flow
 1. Connect Freighter Wallet (address: `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N`).
 2. Select dashboard to check signer status and balance.
@@ -178,8 +158,3 @@ User Flow
 5. Once the threshold is met, execute the proposal to transfer the funds.
 6. Track events in real-time in the activity feed.
 
-Notes
-* The project is currently wired to Stellar testnet.
-* Write actions require Freighter authorization.
-* Read actions do not require an active wallet signature.
-* If the statistics card or other read calls fail, check the contract configuration in `.env.local`.
