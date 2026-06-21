@@ -18,8 +18,8 @@ A state-of-the-art, responsive operator console and Next.js frontend integrated 
 
 | Resource | Value / Link |
 | :--- | :--- |
-| **Contract ID** | `CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP` |
-| **Stellar Expert Explorer** | [View Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP) |
+| **Contract ID** | `CCNWJMR5ALYLQKBHCK37YYYV2U5T4WK5JFQGHUSE3RRXESUPTDHWEMHL` |
+| **Stellar Expert Explorer** | [View Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCNWJMR5ALYLQKBHCK37YYYV2U5T4WK5JFQGHUSE3RRXESUPTDHWEMHL) |
 | **Freighter Wallet Address** | `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N` |
 | **Live Deployment Link** | [multi-signature-treasury-dashboard.vercel.app](https://multi-signature-treasury-dashboard.vercel.app/) |
 
