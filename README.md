@@ -30,6 +30,7 @@ A **production-grade, multi-signature treasury dApp** built on Stellar/Soroban. 
 | **Stellar Expert Explorer** | [View Contract on Stellar Expert](https://stellar.expert/explorer/testnet/contract/CANWI4UO2NHX3PJD6VDSHTXJHNPRBATL5VRBDCNQATUQW2LUWF4YM4JP) |
 | **Freighter Wallet Address** | `GBUX3IHQTAIRN3BXVBWZMKFW2CF6FE4QKQWYEDHYGQXL6OQ3YFMN5R3N` |
 | **Live Deployment** | [multi-signature-treasury-dashboard.vercel.app](https://multi-signature-treasury-dashboard.vercel.app/) |
+| **Demo Video** | [Watch Demo Video on Google Drive](https://drive.google.com/file/d/1c2Dgrx2lHIdP5ki39-opCLN55rZZJ_mn/view?usp=sharing) |
 
 ---
 
