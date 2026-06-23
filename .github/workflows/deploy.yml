@@ -8,6 +8,7 @@ on:
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
 jobs:
   deploy:
@@ -30,13 +31,28 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
+      - name: Check Vercel Credentials
+        id: check_credentials
+        run: |
+          if [ -z "${{ env.VERCEL_TOKEN }}" ] || [ -z "${{ env.VERCEL_ORG_ID }}" ] || [ -z "${{ env.VERCEL_PROJECT_ID }}" ]; then
+            echo "⚠️ Vercel credentials (VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID) are not configured."
+            echo "Skipping production deployment steps."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "✅ Vercel credentials found. Proceeding with deployment."
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Pull Vercel environment
+        if: steps.check_credentials.outputs.skip == 'false'
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build project for Vercel
+        if: steps.check_credentials.outputs.skip == 'false'
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy to Vercel
+        if: steps.check_credentials.outputs.skip == 'false'
         id: deploy
         run: |
           DEPLOYMENT_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
@@ -44,7 +60,7 @@ jobs:
           echo "✅ Deployed to: $DEPLOYMENT_URL"
 
       - name: Comment deployment URL on PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.check_credentials.outputs.skip == 'false'
         uses: actions/github-script@v7
         with:
           script: |

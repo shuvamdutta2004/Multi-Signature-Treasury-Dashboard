@@ -9,8 +9,8 @@ crate-type = ["cdylib"]
 [dependencies]
 soroban-sdk = { version = "21.0.0", default-features = false }
 
-# [dev-dependencies]
-# soroban-sdk = { version = "21.0.0", features = ["testutils", "alloc"] }
+[dev-dependencies]
+soroban-sdk = { version = "21.0.0", features = ["testutils", "alloc"] }
 
 [profile.release]
 opt-level = "z"
